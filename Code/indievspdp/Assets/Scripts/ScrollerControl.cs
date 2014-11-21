@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ScrollerControl : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
+public class ScrollerControl : MonoBehaviour
+{
+	public float scrollingSpeed, scrollingObjectDeletePointX;
+	void Start ()
+	{
+		Global.sCont = GetComponent<ScrollerControl>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+	float GetScrollingSpeed()
+	{
+		return scrollingSpeed;
+	}
+
+	void Update ()
+	{
 	
 	}
 }
