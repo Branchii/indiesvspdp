@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Bunny : MonoBehaviour
 {
-    enum BunnyType
+    public enum BunnyType
     {
         None,
         Constructor,
@@ -11,53 +11,43 @@ public class Bunny : MonoBehaviour
         Lumberjack
     }
 
-    BunnyType bunnyType;
-    Animator anim;
+    BunnyType bunnyType = BunnyType.None;
+    BunnyAnimation bunnyAnim;
+
     void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
-    }
-
-    void Start()
-    {
-        bunnyType = BunnyType.None;
+        bunnyAnim = gameObject.GetComponentInChildren<BunnyAnimation>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            ChangeType(BunnyType.Fireman);
+            ChangeForm(BunnyType.Fireman);
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.name == "Hazard Fire")
+        if (col.transform.tag == "HazardFire")
         {
             if (bunnyType == BunnyType.Fireman)
             {
                 Debug.Log("Bunnyfiremaaan");
-                col.gameObject.GetComponent<Fire>().Extinguish();
+                Destroy(col.gameObject);
             }
             else
             {
                 Debug.Log("Bunny burns");
-                Destroy(gameObject);
-                col.gameObject.GetComponent<Fire>().Extinguish();
+                bunnyAnim.DeathAnimation();
+                Destroy(col.gameObject);
             }
         }
     }
 
-    void ChangeType(BunnyType type)
+    void ChangeForm(BunnyType type)
     {
         bunnyType = type;
-
-        switch (bunnyType)
-        {
-            case BunnyType.Fireman:
-                anim.SetBool("fireman", true);
-                break;
-        }
+        bunnyAnim.ChangeAnimation(bunnyType);
     }
 }
