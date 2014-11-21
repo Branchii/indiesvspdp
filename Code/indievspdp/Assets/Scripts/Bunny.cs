@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Bunny : MonoBehaviour
 {
-    enum BunnyType
+    public enum BunnyType
     {
         None,
         Constructor,
@@ -11,53 +11,83 @@ public class Bunny : MonoBehaviour
         Lumberjack
     }
 
-    BunnyType bunnyType;
-    Animator anim;
+    BunnyType bunnyType = BunnyType.None;
+    BunnyAnimation bunnyAnim;
+
     void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
-    }
-
-    void Start()
-    {
-        bunnyType = BunnyType.None;
+        bunnyAnim = gameObject.GetComponentInChildren<BunnyAnimation>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            ChangeType(BunnyType.Fireman);
+            ChangeForm(BunnyType.None);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            ChangeForm(BunnyType.Fireman);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            ChangeForm(BunnyType.Constructor);
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            ChangeForm(BunnyType.Lumberjack);
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.transform.name == "Hazard Fire")
+        if (col.transform.tag == "HazardFire")
         {
             if (bunnyType == BunnyType.Fireman)
             {
-                Debug.Log("Bunnyfiremaaan");
-                col.gameObject.GetComponent<Fire>().Extinguish();
+                Debug.Log("Firemaaan");
+                Destroy(col.gameObject);
             }
             else
             {
                 Debug.Log("Bunny burns");
-                Destroy(gameObject);
-                col.gameObject.GetComponent<Fire>().Extinguish();
+                bunnyAnim.DeathAnimation();
+                Destroy(col.gameObject);
+            }
+        }
+        else if (col.transform.tag == "HazardHole")
+        {
+            if (bunnyType == BunnyType.Constructor)
+            {
+                Debug.Log("Constructooooor");
+                Destroy(col.gameObject);
+            }
+            else
+            {
+                Debug.Log("Bunny falls");
+                bunnyAnim.DeathAnimation();
+                Destroy(col.gameObject);
+            }
+        }
+        else if (col.transform.tag == "HazardTree")
+        {
+            if (bunnyType == BunnyType.Lumberjack)
+            {
+                Debug.Log("Lumberjaaaaack");
+                Destroy(col.gameObject);
+            }
+            else
+            {
+                Debug.Log("Bunny bumps");
+                bunnyAnim.DeathAnimation();
+                Destroy(col.gameObject);
             }
         }
     }
 
-    void ChangeType(BunnyType type)
+    void ChangeForm(BunnyType type)
     {
         bunnyType = type;
-
-        switch (bunnyType)
-        {
-            case BunnyType.Fireman:
-                anim.SetBool("fireman", true);
-                break;
-        }
+        bunnyAnim.ChangeAnimation(bunnyType);
     }
 }
