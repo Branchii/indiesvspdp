@@ -34,6 +34,14 @@ public class BunnyAnimation : MonoBehaviour
             case Bunny.BunnyType.Fireman:
                 anim.SetBool("fireman", false);
                 break;
+
+            case Bunny.BunnyType.Constructor:
+                anim.SetBool("constructor", false);
+                break;
+
+            case Bunny.BunnyType.Lumberjack:
+                anim.SetBool("lumberjack", false);
+                break;
         }
 
         bunnyType = type;
@@ -47,6 +55,14 @@ public class BunnyAnimation : MonoBehaviour
             case Bunny.BunnyType.Fireman:
                 anim.SetBool("fireman", true);
                 break;
+
+            case Bunny.BunnyType.Constructor:
+                anim.SetBool("constructor", true);
+                break;
+
+            case Bunny.BunnyType.Lumberjack:
+                anim.SetBool("lumberjack", true);
+                break;
         }
     }
 
@@ -57,6 +73,6 @@ public class BunnyAnimation : MonoBehaviour
 
     void Death()
     {
-        Destroy(this.gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
