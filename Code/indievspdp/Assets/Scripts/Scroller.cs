@@ -4,6 +4,7 @@ using System.Collections;
 public class Scroller : MonoBehaviour
 {
 	public float objectDeletePointOffset = 0.0f;	//if big objects delete too soon, lower this
+	Vector2 lastVelo = new Vector3();
 	Rigidbody2D rigid;
 	void Start ()
 	{
@@ -19,7 +20,11 @@ public class Scroller : MonoBehaviour
 	{
 		if (rigid)
 		{
-			rigid.velocity = new Vector3(-Global.sCont.scrollingSpeed, 0.0f, 0.0f);
+			//rigid.velocity -= lastVelo;
+			//rigid.velocity += new Vector2(-Global.sCont.scrollingSpeed, 0.0f);
+			//lastVelo = new Vector2(-Global.sCont.scrollingSpeed, 0.0f); ;
+
+			rigid.velocity = new Vector2(-Global.sCont.scrollingSpeed, 0.0f);
 		}
 		else
 		{

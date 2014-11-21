@@ -5,7 +5,7 @@ public class HazardGenerator : MonoBehaviour
 {
 	public GameObject[] hazards;	//the hazards
 
-	float nextHazard;				//time left before creating next hazard <---scrollunits
+	float nextHazard;				//time left before creating next hazard
 	Transform hazardPoint;			//where to create hazards
 
 	void Start ()
