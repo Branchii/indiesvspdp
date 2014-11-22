@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BubbleGenerator : MonoBehaviour
 {
+	public float rate;				//generation rate
 	public GameObject[] bubbles;	//the bubbles
 
 	float nextbubble;				//time left before creating next bubbles
@@ -10,7 +11,7 @@ public class BubbleGenerator : MonoBehaviour
 
 	void Start()
 	{
-		nextbubble = 2.0f;
+		nextbubble = rate;
 		bubblePoint = transform;
 	}
 	GameObject GetRandomBubbleFromList(ref GameObject[] bubbleList_)
@@ -37,7 +38,7 @@ public class BubbleGenerator : MonoBehaviour
 		if (nextbubble <= 0.0f)
 		{
 			CreateRandomBubble();
-			nextbubble = 2.0f;
+			nextbubble = rate;
 		}
 	}
 }

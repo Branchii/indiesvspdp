@@ -3,6 +3,7 @@ using System.Collections;
 
 public class HazardGenerator : MonoBehaviour
 {
+	public float rate;				//generation rate
 	public GameObject[] hazards;	//the hazards
 
 	float nextHazard;				//time left before creating next hazard
@@ -10,7 +11,7 @@ public class HazardGenerator : MonoBehaviour
 
 	void Start ()
 	{
-		nextHazard = 2.0f;
+		nextHazard = rate;
 		hazardPoint = transform;
 	}
 
@@ -38,7 +39,7 @@ public class HazardGenerator : MonoBehaviour
 		if (nextHazard <= 0.0f)
 		{
 			CreateRandomHazard();
-			nextHazard = 2.0f;
+			nextHazard = rate;
 		}
 	}
 }

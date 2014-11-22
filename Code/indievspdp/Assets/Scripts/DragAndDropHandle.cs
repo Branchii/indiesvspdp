@@ -7,6 +7,9 @@ public class DragAndDropHandle : MonoBehaviour
 	Rigidbody2D rigid;
 
 	bool mouseOver = false;
+	bool started = false;
+
+	int randomForceTimer = 0;
 
 	void Start ()
 	{
@@ -25,12 +28,28 @@ public class DragAndDropHandle : MonoBehaviour
 			if (Input.GetMouseButtonDown(0))
 			{
 				tBegin = Input.mousePosition;
+				started = true;
 			}
 		}
 		if (Input.GetMouseButtonUp(0))
 		{
 			tEnd = Input.mousePosition;
-			GiveForce(tBegin, tEnd);
+			if (started)
+				GiveForce(tBegin, tEnd);
+			started = false;
+		}
+	}
+
+	void FixedUpdate()
+	{
+		randomForceTimer++;
+		if (randomForceTimer > 20)
+		{
+			float val = Random.value * 2.0f - 1.0f;
+			float val2 = Random.value * 2.0f - 1.0f;
+			rigid.AddForce(new Vector2(val * 8.0f, val2 * 8.0f));
+			randomForceTimer = 0;
+			//Debug.Log("ada");
 		}
 	}
 
@@ -38,8 +57,11 @@ public class DragAndDropHandle : MonoBehaviour
 	{
 		if (rigid)
 		{
-			rigid.velocity = begin - end;
-			Debug.Log((begin - end));
+			Vector2 force = -(begin - end).normalized;
+			force *= 220.0f;
+			rigid.AddForce(force);
+
+			//Debug.Log(force);
 		}
 	}
 
@@ -59,8 +81,6 @@ public class DragAndDropHandle : MonoBehaviour
 				GiveForce(tBegin, tEnd);
 			}
 		}*/
-
-		
 
 	}
 
