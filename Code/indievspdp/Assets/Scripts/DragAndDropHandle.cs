@@ -9,8 +9,10 @@ public class DragAndDropHandle : MonoBehaviour
 
 	bool mouseOver = false;
 	bool started = false;
+	bool swiped = true;
 
 	int randomForceTimer = 0;
+	Scroller scroller;
 
 	void Start ()
 	{
@@ -20,6 +22,7 @@ public class DragAndDropHandle : MonoBehaviour
 	void Awake()
 	{
 		rigid = GetComponent<Rigidbody2D>();
+		scroller = GetComponent<Scroller>();
 	}
 	
 	void Update ()
@@ -51,15 +54,29 @@ public class DragAndDropHandle : MonoBehaviour
 			rigid.AddForce(new Vector2(val * 8.0f, val2 * 8.0f));
 			randomForceTimer = 0;
 		}
+		if (swiped && rigid.velocity.magnitude < 1.0f)
+		{
+			if (scroller)
+			{
+				scroller.enabled = true;
+				swiped = false;
+				Debug.Log("scroller enabled");
+			}
+		}
 	}
 
 	void GiveForce(Vector2 begin, Vector2 end)
 	{
 		if (rigid)
 		{
+			if (scroller)
+			{
+				scroller.enabled = false;
+			}
 			Vector2 force = -(begin - end).normalized;
-			force *= swipeForce;//220.0f;
+			force *= swipeForce; //220.0f;
 			rigid.AddForce(force);
+			swiped = true;
 		}
 	}
 
