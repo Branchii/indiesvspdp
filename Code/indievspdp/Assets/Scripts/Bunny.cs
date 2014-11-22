@@ -15,9 +15,24 @@ public class Bunny : MonoBehaviour
     BunnyAnimation bunnyAnim;
     Vector2 dragStart;
     Vector2 origPos;
+    Ray2D ray = new Ray2D(Vector2.zero, Vector2.right);
 
     bool mouseOver, selected;
     bool moving = false;
+    bool dying = false;
+
+    public bool Dying
+    {
+        get { return dying; }
+        private set
+        {
+            if (value)
+            {
+                selected = false;
+            }
+            dying = value;
+        }
+    }
 
     public bool Moving
     {
@@ -64,49 +79,64 @@ public class Bunny : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void FixedUpdate()
     {
-        if (col.transform.tag == "HazardFire")
+        if (!dying)
         {
-            if (bunnyType == BunnyType.Fireman)
+            Debug.DrawRay(gameObject.transform.position, Vector2.right * 1.0f);
+            int layerMask = 1 << 8;
+            RaycastHit2D obstacle = Physics2D.Raycast(gameObject.transform.position, Vector2.right, 1.0f, layerMask);
+
+            if (obstacle)
             {
-                Debug.Log("Firemaaan");
-                Destroy(col.gameObject);
-            }
-            else
-            {
-                Debug.Log("Bunny burns");
-                bunnyAnim.DeathAnimation();
-                Destroy(col.gameObject);
-            }
-        }
-        else if (col.transform.tag == "HazardHole")
-        {
-            if (bunnyType == BunnyType.Constructor)
-            {
-                Debug.Log("Constructooooor");
-                Destroy(col.gameObject);
-            }
-            else
-            {
-                //gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
-                Debug.Log("Bunny falls");
-                bunnyAnim.DeathAnimation();
-                Destroy(col.gameObject);
-            }
-        }
-        else if (col.transform.tag == "HazardTree")
-        {
-            if (bunnyType == BunnyType.Lumberjack)
-            {
-                Debug.Log("Lumberjaaaaack");
-                Destroy(col.gameObject);
-            }
-            else
-            {
-                Debug.Log("Bunny bumps");
-                bunnyAnim.DeathAnimation();
-                Destroy(col.gameObject);
+                Debug.Log("hitt");
+
+                if (obstacle.collider.transform.tag == "HazardFire")
+                {
+                    if (bunnyType == BunnyType.Fireman)
+                    {
+                        Debug.Log("Firemaaan");
+                        Destroy(obstacle.collider.gameObject);
+                    }
+                    else
+                    {
+                        Debug.Log("Bunny burns");
+                        bunnyAnim.DeathAnimation();
+                        Dying = true;
+                        Destroy(obstacle.collider.gameObject);
+                    }
+                }
+                else if (obstacle.collider.transform.tag == "HazardHole")
+                {
+                    if (bunnyType == BunnyType.Constructor)
+                    {
+                        Debug.Log("Constructooooor");
+                        Destroy(obstacle.collider.gameObject);
+                    }
+                    else
+                    {
+                        //gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+                        Debug.Log("Bunny falls");
+                        bunnyAnim.DeathAnimation();
+                        Dying = true;
+                        Destroy(obstacle.collider.gameObject);
+                    }
+                }
+                else if (obstacle.collider.transform.tag == "HazardTree")
+                {
+                    if (bunnyType == BunnyType.Lumberjack)
+                    {
+                        Debug.Log("Lumberjaaaaack");
+                        Destroy(obstacle.collider.gameObject);
+                    }
+                    else
+                    {
+                        Debug.Log("Bunny bumps");
+                        bunnyAnim.DeathAnimation();
+                        Dying = true;
+                        Destroy(obstacle.collider.gameObject);
+                    }
+                }
             }
         }
     }
@@ -126,8 +156,11 @@ public class Bunny : MonoBehaviour
     {
         if (mouseOver)
         {
-            selected = true;
-            dragStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (!dying)
+            {
+                selected = true;
+                dragStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
         }
     }
 
@@ -142,34 +175,36 @@ public class Bunny : MonoBehaviour
             {
                 if (col != gameObject.collider2D && col.gameObject.name == "Bunny")
                 {
-                    float sign = Mathf.Sign(dragStart.x - dragEnd.x);
-                    RaycastHit2D[] colliders = Physics2D.RaycastAll(dragStart, new Vector2(dragStart.x - dragEnd.x, dragStart.y), (dragEnd.x - dragStart.x) * sign);
-
-                    bool asd = false;
-
-                    for (int i = 0; i < colliders.Length; ++i)
+                    if (!col.gameObject.GetComponent<Bunny>().dying)
                     {
-                        if (colliders[i].transform.GetComponent<Bunny>().Moving)
-                        {
-                            asd = true;
-                        }
-                    }
-
-                    if (!asd)
-                    {
-
                         dragStart = gameObject.transform.position;
                         dragEnd = col.gameObject.transform.position;
 
-                        StartCoroutine(MoveToPosition(dragEnd));
+                        float sign = Mathf.Sign(dragStart.x - dragEnd.x);
+                        RaycastHit2D[] colliders = Physics2D.RaycastAll(dragStart, new Vector2(dragStart.x - dragEnd.x, dragStart.y), (dragEnd.x - dragStart.x) * sign);
+
+                        bool asd = false;
 
                         for (int i = 0; i < colliders.Length; ++i)
                         {
-                            Debug.Log(colliders.Length);
-                            if (colliders[i].transform.name == "Bunny" && colliders[i].transform != gameObject.transform)
+                            if (colliders[i].transform.GetComponent<Bunny>().Moving)
                             {
-                                Debug.Log("asd");
-                                StartCoroutine(colliders[i].transform.gameObject.GetComponent<Bunny>().MoveForward(sign));
+                                asd = true;
+                            }
+                        }
+
+                        if (!asd)
+                        {
+                            StartCoroutine(MoveToPosition(dragEnd));
+
+                            for (int i = 0; i < colliders.Length; ++i)
+                            {
+                                Debug.Log(colliders.Length);
+                                if (colliders[i].transform.name == "Bunny" && colliders[i].transform != gameObject.transform)
+                                {
+                                    Debug.Log("asd");
+                                    StartCoroutine(colliders[i].transform.gameObject.GetComponent<Bunny>().MoveForward(sign));
+                                }
                             }
                         }
                     }
@@ -194,12 +229,11 @@ public class Bunny : MonoBehaviour
 
         for (float f = 0f; f < 1.0f; f += Time.deltaTime)
         {
-
             gameObject.transform.position = origPos + new Vector2(1, 0) * f * sign;
             yield return null;
         }
 
-        //gameObject.transform.position = origPos + new Vector2(1, 0) * sign;
+        gameObject.transform.position = origPos + new Vector2(1, 0) * sign;
         origPos = gameObject.transform.position;
         Moving = false;
     }
@@ -210,7 +244,6 @@ public class Bunny : MonoBehaviour
 
         for (float f = 0f; f < 1.0f; f += Time.deltaTime)
         {
-
             gameObject.transform.position = origPos + (pos - origPos) * f;
             yield return null;
         }

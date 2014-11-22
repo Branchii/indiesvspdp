@@ -73,6 +73,8 @@ public class BunnyAnimation : MonoBehaviour
 
     void Death()
     {
-        Destroy(transform.parent.gameObject);
+        Destroy(transform.parent.gameObject.collider2D);
+        Destroy(transform.parent.gameObject, 4.0f);
+        Destroy(this.gameObject);
     }
 }
