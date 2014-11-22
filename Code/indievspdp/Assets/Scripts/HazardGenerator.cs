@@ -4,6 +4,7 @@ using System.Collections;
 public class HazardGenerator : MonoBehaviour
 {
 	public float rate;				//generation rate
+	public float startingTime;		//time before the generator starts (for letting player to gather few bubbles)
 	public GameObject[] hazards;	//the hazards
 
 	float nextHazard;				//time left before creating next hazard
@@ -11,7 +12,8 @@ public class HazardGenerator : MonoBehaviour
 
 	void Start ()
 	{
-		nextHazard = rate;
+		Global.hazGen = GetComponent<HazardGenerator>();
+		nextHazard = startingTime;
 		hazardPoint = transform;
 	}
 

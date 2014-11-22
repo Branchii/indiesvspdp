@@ -3,6 +3,7 @@ using System.Collections;
 
 public class DragAndDropHandle : MonoBehaviour
 {
+	public float swipeForce;
 	Vector2 tBegin, tEnd;
 	Rigidbody2D rigid;
 
@@ -57,7 +58,7 @@ public class DragAndDropHandle : MonoBehaviour
 		if (rigid)
 		{
 			Vector2 force = -(begin - end).normalized;
-			force *= 220.0f;
+			force *= swipeForce;//220.0f;
 			rigid.AddForce(force);
 		}
 	}

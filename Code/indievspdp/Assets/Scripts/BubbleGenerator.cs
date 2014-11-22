@@ -11,7 +11,8 @@ public class BubbleGenerator : MonoBehaviour
 
 	void Start()
 	{
-		nextbubble = rate;
+		Global.bubGen = GetComponent<BubbleGenerator>();
+		nextbubble = 0.0f;
 		bubblePoint = transform;
 	}
 
@@ -30,7 +31,9 @@ public class BubbleGenerator : MonoBehaviour
 	void CreateRandomBubble()
 	{
 		GameObject hazardObj = GetRandomBubbleFromList(ref bubbles);
-		Instantiate(hazardObj, bubblePoint.position, Quaternion.identity);
+		GameObject thisBubble = Instantiate(hazardObj, bubblePoint.position, Quaternion.identity) as GameObject;
+		thisBubble.GetComponent<DragAndDropHandle>().swipeForce = Global.prefCont.bubbleSwipeForce;
+		thisBubble.GetComponent<Rigidbody2D>().AddForce(new Vector2(-50.0f, 0.0f));
 	}
 
 	void Update()
