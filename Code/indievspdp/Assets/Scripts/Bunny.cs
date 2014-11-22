@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Bunny : MonoBehaviour
 {
+    const float BUNNY_SWAP_SPEED = 0.2f;
+
     public enum BunnyType
     {
         None,
@@ -226,7 +228,6 @@ public class Bunny : MonoBehaviour
 
                             for (int i = 0; i < colliders.Length; ++i)
                             {
-                                Debug.Log(colliders.Length);
                                 if (colliders[i].transform.name == "Bunny" && colliders[i].transform != gameObject.transform)
                                 {
                                     StartCoroutine(colliders[i].transform.gameObject.GetComponent<Bunny>().MoveForward(sign));
@@ -262,9 +263,9 @@ public class Bunny : MonoBehaviour
 
         newPos = origPos + new Vector2(BunnyList.BUNNY_INTERVAL, 0) * sign;
 
-        for (float f = 0f; f < 1.0f; f += Time.deltaTime)
+        for (float f = 0f; f < BUNNY_SWAP_SPEED; f += Time.deltaTime)
         {
-            gameObject.transform.position = origPos + new Vector2(BunnyList.BUNNY_INTERVAL, 0) * f * sign;
+            gameObject.transform.position = origPos + new Vector2(BunnyList.BUNNY_INTERVAL, 0) * (f / BUNNY_SWAP_SPEED) * sign;
             yield return null;
         }
         gameObject.transform.position = origPos + new Vector2(BunnyList.BUNNY_INTERVAL, 0) * sign;
@@ -289,9 +290,9 @@ public class Bunny : MonoBehaviour
 
         newPos = pos;
 
-        for (float f = 0f; f < 1.0f; f += Time.deltaTime)
+        for (float f = 0f; f < BUNNY_SWAP_SPEED; f += Time.deltaTime)
         {
-            gameObject.transform.position = origPos + (pos - origPos) * f;
+            gameObject.transform.position = origPos + (pos - origPos) * (f / BUNNY_SWAP_SPEED);
             yield return null;
         }
 
