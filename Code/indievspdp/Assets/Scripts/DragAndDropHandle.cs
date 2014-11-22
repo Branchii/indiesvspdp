@@ -49,7 +49,6 @@ public class DragAndDropHandle : MonoBehaviour
 			float val2 = Random.value * 2.0f - 1.0f;
 			rigid.AddForce(new Vector2(val * 8.0f, val2 * 8.0f));
 			randomForceTimer = 0;
-			//Debug.Log("ada");
 		}
 	}
 
@@ -60,8 +59,6 @@ public class DragAndDropHandle : MonoBehaviour
 			Vector2 force = -(begin - end).normalized;
 			force *= 220.0f;
 			rigid.AddForce(force);
-
-			//Debug.Log(force);
 		}
 	}
 
@@ -81,9 +78,7 @@ public class DragAndDropHandle : MonoBehaviour
 				GiveForce(tBegin, tEnd);
 			}
 		}*/
-
 	}
-
 
 	void OnMouseEnter()
 	{

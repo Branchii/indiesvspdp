@@ -14,6 +14,7 @@ public class BubbleGenerator : MonoBehaviour
 		nextbubble = rate;
 		bubblePoint = transform;
 	}
+
 	GameObject GetRandomBubbleFromList(ref GameObject[] bubbleList_)
 	{
 		if (bubbleList_ != null && bubbleList_.Length != 0)
