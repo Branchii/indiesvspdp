@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Bunny : MonoBehaviour
 {
@@ -15,7 +16,9 @@ public class Bunny : MonoBehaviour
     BunnyAnimation bunnyAnim;
     Vector2 dragStart;
     Vector2 origPos;
+    public Vector2 newPos;
     Ray2D ray = new Ray2D(Vector2.zero, Vector2.right);
+    Queue<int> coRoutineQueue = new Queue<int>();
 
     bool mouseOver, selected;
     bool moving = false;
@@ -53,6 +56,7 @@ public class Bunny : MonoBehaviour
 
     void Start()
     {
+        newPos = Vector2.zero;
         origPos = gameObject.transform.position;
     }
 
@@ -247,22 +251,43 @@ public class Bunny : MonoBehaviour
 
     public IEnumerator MoveForward(float sign)
     {
+        int queueNumber = coRoutineQueue.Count;
+
+        coRoutineQueue.Enqueue(queueNumber);
+        while (coRoutineQueue.Peek() != queueNumber)
+        {
+            yield return null;
+        }
         Moving = true;
+
+        newPos = origPos + new Vector2(BunnyList.BUNNY_INTERVAL, 0) * sign;
 
         for (float f = 0f; f < 1.0f; f += Time.deltaTime)
         {
-            gameObject.transform.position = origPos + new Vector2(1, 0) * f * sign;
+            gameObject.transform.position = origPos + new Vector2(BunnyList.BUNNY_INTERVAL, 0) * f * sign;
             yield return null;
         }
-
-        gameObject.transform.position = origPos + new Vector2(1, 0) * sign;
+        gameObject.transform.position = origPos + new Vector2(BunnyList.BUNNY_INTERVAL, 0) * sign;
         origPos = gameObject.transform.position;
         Moving = false;
+
+        coRoutineQueue.Dequeue();
+        newPos = Vector2.zero;
     }
 
     public IEnumerator MoveToPosition(Vector2 pos)
     {
+        int queueNumber = 200;
+        coRoutineQueue.Enqueue(queueNumber);
+
+        while (coRoutineQueue.Peek() != queueNumber)
+        {
+            yield return null;
+        }
+
         Moving = true;
+
+        newPos = pos;
 
         for (float f = 0f; f < 1.0f; f += Time.deltaTime)
         {
@@ -274,5 +299,13 @@ public class Bunny : MonoBehaviour
         origPos = gameObject.transform.position;
 
         Moving = false;
+
+        coRoutineQueue.Dequeue();
+        newPos = Vector2.zero;
+    }
+
+    public BunnyType ReturnType()
+    {
+        return bunnyType;
     }
 }
