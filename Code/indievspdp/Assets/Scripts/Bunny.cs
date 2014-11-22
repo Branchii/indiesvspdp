@@ -139,6 +139,24 @@ public class Bunny : MonoBehaviour
             }
         }
     }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "BubbleWater")
+        {
+            ChangeForm(BunnyType.Fireman);
+            Destroy(col.gameObject);
+        }
+        else if (col.gameObject.tag == "BubbleSaw")
+        {
+            ChangeForm(BunnyType.Lumberjack);
+            Destroy(col.gameObject);
+        }
+        else if (col.gameObject.tag == "BubblePinwheel")
+        {
+            ChangeForm(BunnyType.Pinwheel);
+            Destroy(col.gameObject);
+        }
+    }
 
     void ChangeForm(BunnyType type)
     {
@@ -180,19 +198,19 @@ public class Bunny : MonoBehaviour
                         dragEnd = col.gameObject.transform.position;
 
                         float sign = Mathf.Sign(dragStart.x - dragEnd.x);
-                        RaycastHit2D[] colliders = Physics2D.RaycastAll(dragStart, new Vector2(dragStart.x - dragEnd.x, dragStart.y), (dragEnd.x - dragStart.x) * sign);
+                        RaycastHit2D[] colliders = Physics2D.RaycastAll(dragStart, new Vector2(dragStart.x - dragEnd.x, 0), (dragEnd.x - dragStart.x) * sign);
 
-                        bool asd = false;
+                        bool anyMoving = false;
 
                         for (int i = 0; i < colliders.Length; ++i)
                         {
                             if (colliders[i].transform.GetComponent<Bunny>().Moving)
                             {
-                                asd = true;
+                                anyMoving = true;
                             }
                         }
 
-                        if (!asd)
+                        if (!anyMoving)
                         {
                             StartCoroutine(MoveToPosition(dragEnd));
 
@@ -201,7 +219,6 @@ public class Bunny : MonoBehaviour
                                 Debug.Log(colliders.Length);
                                 if (colliders[i].transform.name == "Bunny" && colliders[i].transform != gameObject.transform)
                                 {
-                                    Debug.Log("asd");
                                     StartCoroutine(colliders[i].transform.gameObject.GetComponent<Bunny>().MoveForward(sign));
                                 }
                             }
