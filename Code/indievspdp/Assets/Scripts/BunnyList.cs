@@ -31,16 +31,12 @@ public class BunnyList : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
             AddBunny();
+            ReturnItemCount(Bunny.BunnyType.Fireman);
         }
     }
 
@@ -94,5 +90,20 @@ public class BunnyList : MonoBehaviour
         bunny.transform.name = "Bunny";
         list.Add(bunny);
         childCount++;
+    }
+
+    public int ReturnItemCount(Bunny.BunnyType type)
+    {
+        int count = 0;
+
+        for (int i = 0; i < list.Count; ++i)
+        {
+            if (list[i].GetComponent<Bunny>().ReturnType() == type)
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 }

@@ -297,4 +297,9 @@ public class Bunny : MonoBehaviour
         coRoutineQueue.Dequeue();
         newPos = Vector2.zero;
     }
+
+    public BunnyType ReturnType()
+    {
+        return bunnyType;
+    }
 }
