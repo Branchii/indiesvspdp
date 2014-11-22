@@ -12,6 +12,8 @@ public class BunnyList : MonoBehaviour
     Vector2 nextPosition;
     void Awake()
     {
+		Global.bunnyList = GetComponent<BunnyList>();
+
         list = new List<GameObject>();
 
         Vector2 startPosition = gameObject.transform.position;

@@ -10,9 +10,13 @@ public class HazardGenerator : MonoBehaviour
 	float nextHazard;				//time left before creating next hazard
 	Transform hazardPoint;			//where to create hazards
 
-	void Start ()
+	void Awake()
 	{
 		Global.hazGen = GetComponent<HazardGenerator>();
+	}
+
+	void Start ()
+	{
 		nextHazard = startingTime;
 		hazardPoint = transform;
 	}

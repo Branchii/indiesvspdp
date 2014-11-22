@@ -9,7 +9,7 @@ public class PreferencesControl : MonoBehaviour
 	public float scoreRewardPerSecond;
 	public int scoreRewardFromBubble;
 
-	void Start()
+	void Awake()
 	{
 		Global.prefCont = GetComponent<PreferencesControl>();
 	}

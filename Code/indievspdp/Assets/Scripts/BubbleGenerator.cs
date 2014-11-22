@@ -9,9 +9,13 @@ public class BubbleGenerator : MonoBehaviour
 	float nextbubble;				//time left before creating next bubbles
 	Transform bubblePoint;			//where to create bubbles
 
-	void Start()
+	void Awake()
 	{
 		Global.bubGen = GetComponent<BubbleGenerator>();
+	}
+
+	void Start()
+	{
 		nextbubble = 0.0f;
 		bubblePoint = transform;
 	}
@@ -35,6 +39,10 @@ public class BubbleGenerator : MonoBehaviour
 		thisBubble.GetComponent<DragAndDropHandle>().swipeForce = Global.prefCont.bubbleSwipeForce;
 		thisBubble.GetComponent<Rigidbody2D>().AddForce(new Vector2(-50.0f, 0.0f));
 		thisBubble.GetComponent<Scroller>().scrollingSpeedOffset = 0.15f;
+
+		//bunnyup?
+		float value = Random.value * 100.0f;
+		float thres = 0.0f;
 	}
 
 	void Update()

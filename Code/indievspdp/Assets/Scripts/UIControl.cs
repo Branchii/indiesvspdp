@@ -11,7 +11,7 @@ public class UIControl : MonoBehaviour
 	float gameTime = 0.0f;
 	bool timerToggle = true;
 
-	void Start ()
+	void Awake ()
 	{
 		Global.UICont = GetComponent<UIControl>();
 	}

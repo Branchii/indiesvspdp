@@ -9,6 +9,7 @@ static public class Global
 	static public PreferencesControl prefCont = null;
 	static public Camera cam = null;
 	static public UIControl UICont = null;
+	static public BunnyList bunnyList = null;
 
 	static Vector2 ScreenToWorld(Vector2 screen)
 	{

@@ -4,7 +4,7 @@ using System.Collections;
 public class ScrollerControl : MonoBehaviour
 {
 	public float scrollingSpeed, scrollingObjectDeletePointX;
-	void Start ()
+	void Awake ()
 	{
 		Global.sCont = GetComponent<ScrollerControl>();
 	}

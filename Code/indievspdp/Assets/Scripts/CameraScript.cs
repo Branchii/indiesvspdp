@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraScript : MonoBehaviour
 {
-	void Start ()
+	void Awake ()
 	{
 		Global.cam = GetComponent<Camera>();
 	}
