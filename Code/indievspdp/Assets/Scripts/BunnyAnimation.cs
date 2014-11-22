@@ -6,6 +6,7 @@ public class BunnyAnimation : MonoBehaviour
     Bunny bunnyScript;
     Animator anim;
     Bunny.BunnyType bunnyType;
+    BunnyList bunnyList;
 
     void Awake()
     {
@@ -14,8 +15,9 @@ public class BunnyAnimation : MonoBehaviour
     }
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
+        bunnyList = gameObject.GetComponentInParent<BunnyList>();
 	}
 	
 	// Update is called once per frame
@@ -74,7 +76,7 @@ public class BunnyAnimation : MonoBehaviour
     void Death()
     {
         Destroy(transform.parent.gameObject.collider2D);
-        Destroy(transform.parent.gameObject, 4.0f);
         Destroy(this.gameObject);
+        bunnyList.RemoveBunny(transform.parent.gameObject);
     }
 }
