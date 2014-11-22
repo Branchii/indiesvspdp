@@ -16,9 +16,15 @@ public class DifficultyControl : MonoBehaviour
 		currentDifficulty = 1.0f;
 		speedUpTimer = 0;
 	}
+
+	void Awake()
+	{
+		
+	}
 	
 	void FixedUpdate()
 	{
+		//Global.UICont.score += 1;
 		speedUpTimer++;
 		if (speedUpTimer >= speedUpTicks)
 		{
@@ -28,7 +34,7 @@ public class DifficultyControl : MonoBehaviour
 			speedUpTimer = 0;
 
 
-			Debug.Log("scrolling speed: " + Global.sCont.scrollingSpeed);
+			//Debug.Log("scrolling speed: " + Global.sCont.scrollingSpeed);
 		}
 	}
 }

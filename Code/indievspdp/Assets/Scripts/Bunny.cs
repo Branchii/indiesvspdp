@@ -97,6 +97,7 @@ public class Bunny : MonoBehaviour
                     {
                         Debug.Log("Firemaaan");
                         Destroy(obstacle.collider.gameObject);
+						Global.UICont.HazardFireDisable();
                     }
                     else
                     {
@@ -112,6 +113,7 @@ public class Bunny : MonoBehaviour
                     {
                         Debug.Log("Pinwheeeeeeel");
                         Destroy(obstacle.collider.gameObject);
+						Global.UICont.HazardRainDisable();
                     }
                     else
                     {
@@ -127,6 +129,7 @@ public class Bunny : MonoBehaviour
                     {
                         Debug.Log("Lumberjaaaaack");
                         Destroy(obstacle.collider.gameObject);
+						Global.UICont.HazardTreeDisable();
                     }
                     else
                     {
@@ -145,16 +148,19 @@ public class Bunny : MonoBehaviour
         {
             ChangeForm(BunnyType.Fireman);
             Destroy(col.gameObject);
+			Global.UICont.BubblePickup();
         }
         else if (col.gameObject.tag == "BubbleSaw")
         {
             ChangeForm(BunnyType.Lumberjack);
             Destroy(col.gameObject);
+			Global.UICont.BubblePickup();
         }
         else if (col.gameObject.tag == "BubblePinwheel")
         {
             ChangeForm(BunnyType.Pinwheel);
             Destroy(col.gameObject);
+			Global.UICont.BubblePickup();
         }
     }
 

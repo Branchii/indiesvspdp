@@ -5,6 +5,7 @@ public class DragAndDropHandle : MonoBehaviour
 {
 	public float swipeForce;
 	Vector2 tBegin, tEnd;
+	Vector3 tBeginT, tEndT;
 	Rigidbody2D rigid;
 
 	bool mouseOver = false;
@@ -14,9 +15,12 @@ public class DragAndDropHandle : MonoBehaviour
 	int randomForceTimer = 0;
 	Scroller scroller;
 
+	float swipeTimer;
+
+
 	void Start ()
 	{
-		
+		swipeTimer = 0.0f;
 	}
 
 	void Awake()
@@ -27,19 +31,29 @@ public class DragAndDropHandle : MonoBehaviour
 	
 	void Update ()
 	{
+		if (started)
+		{
+			swipeTimer += Time.deltaTime;
+		}
 		if (mouseOver)
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
 				tBegin = Input.mousePosition;
+				//tBeginT = transform.position;
 				started = true;
 			}
 		}
-		if (Input.GetMouseButtonUp(0))
+		if (Input.GetMouseButtonUp(0) && started)
 		{
 			tEnd = Input.mousePosition;
-			if (started)
+			
+			if (swipeTimer < 0.4f)
+			{
 				GiveForce(tBegin, tEnd);
+				
+			}
+			swipeTimer = 0.0f;
 			started = false;
 		}
 	}
@@ -60,7 +74,7 @@ public class DragAndDropHandle : MonoBehaviour
 			{
 				scroller.enabled = true;
 				swiped = false;
-				Debug.Log("scroller enabled");
+				//Debug.Log("scroller enabled");
 			}
 		}
 	}
@@ -73,8 +87,10 @@ public class DragAndDropHandle : MonoBehaviour
 			{
 				scroller.enabled = false;
 			}
-			Vector2 force = -(begin - end).normalized;
-			force *= swipeForce; //220.0f;
+			Vector2 force = -(begin - end) * 5.0f;
+
+			/*Vector2 force = -(begin - end).normalized;
+			force *= swipeForce; //220.0f;*/
 			rigid.AddForce(force);
 			swiped = true;
 		}

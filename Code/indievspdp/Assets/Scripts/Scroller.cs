@@ -4,8 +4,9 @@ using System.Collections;
 public class Scroller : MonoBehaviour
 {
 	public float objectDeletePointOffset;	//if big objects delete too soon, lower this
-
 	public float rigidDrag;					//add drag to scrolling, allowing to customize rigid's own drag
+	public float scrollingSpeedOffset;			//add to scrollingspeed independently
+
 	Rigidbody2D rigid;
 
 	void Start ()
@@ -17,7 +18,7 @@ public class Scroller : MonoBehaviour
 	{
 		if (rigid)
 		{
-			rigid.AddForce(new Vector2(-Global.sCont.scrollingSpeed * 1.0f, 0.0f));
+			rigid.AddForce(new Vector2(-Global.sCont.scrollingSpeed - scrollingSpeedOffset, 0.0f));
 			rigid.AddForce(new Vector2(rigidDrag, 0.0f));
 
 		}
