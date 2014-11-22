@@ -47,7 +47,6 @@ public class BunnyList : MonoBehaviour
 
         for (int i = childCount - 1; i >= 0; --i)
         {
-            Debug.Log(i);
             if (list[i] == bunny)
             {
                 list.RemoveAt(i);
