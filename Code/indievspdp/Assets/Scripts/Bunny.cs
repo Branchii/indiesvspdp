@@ -6,9 +6,9 @@ public class Bunny : MonoBehaviour
     public enum BunnyType
     {
         None,
-        Constructor,
+        Lumberjack,
         Fireman,
-        Lumberjack
+        Pinwheel
     }
 
     BunnyType bunnyType = BunnyType.None;
@@ -70,7 +70,7 @@ public class Bunny : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
-                ChangeForm(BunnyType.Constructor);
+                ChangeForm(BunnyType.Pinwheel);
             }
             else if (Input.GetKeyDown(KeyCode.F))
             {
@@ -106,17 +106,16 @@ public class Bunny : MonoBehaviour
                         Destroy(obstacle.collider.gameObject);
                     }
                 }
-                else if (obstacle.collider.transform.tag == "HazardHole")
+                else if (obstacle.collider.transform.tag == "HazardRain")
                 {
-                    if (bunnyType == BunnyType.Constructor)
+                    if (bunnyType == BunnyType.Pinwheel)
                     {
-                        Debug.Log("Constructooooor");
+                        Debug.Log("Pinwheeeeeeel");
                         Destroy(obstacle.collider.gameObject);
                     }
                     else
                     {
-                        //gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
-                        Debug.Log("Bunny falls");
+                        Debug.Log("Bunny drowns");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         Destroy(obstacle.collider.gameObject);

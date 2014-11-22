@@ -35,12 +35,12 @@ public class BunnyAnimation : MonoBehaviour
                 anim.SetBool("fireman", false);
                 break;
 
-            case Bunny.BunnyType.Constructor:
-                anim.SetBool("constructor", false);
-                break;
-
             case Bunny.BunnyType.Lumberjack:
                 anim.SetBool("lumberjack", false);
+                break;
+
+            case Bunny.BunnyType.Pinwheel:
+                anim.SetBool("pinwheel", false);
                 break;
         }
 
@@ -56,12 +56,12 @@ public class BunnyAnimation : MonoBehaviour
                 anim.SetBool("fireman", true);
                 break;
 
-            case Bunny.BunnyType.Constructor:
-                anim.SetBool("constructor", true);
-                break;
-
             case Bunny.BunnyType.Lumberjack:
                 anim.SetBool("lumberjack", true);
+                break;
+
+            case Bunny.BunnyType.Pinwheel:
+                anim.SetBool("pinwheel", true);
                 break;
         }
     }
