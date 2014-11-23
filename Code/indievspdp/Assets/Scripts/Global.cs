@@ -27,8 +27,9 @@ static public class Global
 		//reset score
 		UICont.score = 0;
 		UICont.hazard = 0;
+        
+        bunnyList.StartingBunnies(3); //parameter is the amount of bunnies spawned at start
 
-		//add bunnies
 		//show ui (hidden from beginning of the game, and never being hidden again)
 	}
 	static public void StopGame()

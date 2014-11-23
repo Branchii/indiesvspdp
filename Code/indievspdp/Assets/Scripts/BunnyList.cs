@@ -6,26 +6,23 @@ public class BunnyList : MonoBehaviour
 {
     public const float BUNNY_INTERVAL = 1.5f;
     const int MAX_BUNNIES = 6;
+    const float START_SPAWN_DELAY = 0.2f;
 
 
     List<GameObject> list;
     public int childCount;
     public GameObject bunnyPrefab;
     Vector2 nextPosition;
+
+    Queue<int> asds;
     void Awake()
     {
+        asds = new Queue<int>();
 		Global.bunnyList = GetComponent<BunnyList>();
-
         list = new List<GameObject>();
+        nextPosition = new Vector2(gameObject.transform.position.x + BUNNY_INTERVAL, gameObject.transform.position.y);
 
-        Vector2 startPosition = gameObject.transform.position;
-        nextPosition = startPosition;
-        GameObject firstBunny = Instantiate(bunnyPrefab, startPosition, Quaternion.identity) as GameObject;
-        firstBunny.transform.parent = gameObject.transform;
-        firstBunny.transform.name = "Bunny";
-        list.Add(firstBunny);
-
-        for (int i = 0; i < childCount - 1; i++)
+        for (int i = 0; i < childCount; i++)
         {
             nextPosition.x -= BUNNY_INTERVAL;
             GameObject bunny = Instantiate(bunnyPrefab, nextPosition, Quaternion.identity) as GameObject;
@@ -118,5 +115,35 @@ public class BunnyList : MonoBehaviour
         }
 
         return count;
+    }
+
+    public void StartingBunnies(int count)
+    {
+        for (int k = 0; k < count; ++k)
+        {
+            StartCoroutine(StartingBunny());
+        }
+    }
+
+    public IEnumerator StartingBunny()
+    {
+        int queueNumber = asds.Count;
+        asds.Enqueue(queueNumber);
+
+        while (asds.Peek() != queueNumber)
+        {
+            yield return null;
+        }
+
+        AddBunny();
+
+        float f = 0f;
+        while (f < START_SPAWN_DELAY)
+        {
+            f += Time.deltaTime;
+            yield return null;
+        }
+
+        asds.Dequeue();
     }
 }
