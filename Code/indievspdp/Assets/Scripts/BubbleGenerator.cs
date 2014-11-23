@@ -20,7 +20,7 @@ public class BubbleGenerator : MonoBehaviour
 	{
 		nextbubble = 0.0f;
 		bubblePoint = transform;
-
+		CreateAllBubbles();
 	}
 
 	void CreateAllBubbles()
