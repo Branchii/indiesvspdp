@@ -24,6 +24,32 @@ public class HazardGenerator : MonoBehaviour
 		hazardPoint = transform;
 	}
 
+	public void DeleteAll()
+	{
+		GameObject[] haz1 = GameObject.FindGameObjectsWithTag("HazardFire");
+		GameObject[] haz2 = GameObject.FindGameObjectsWithTag("HazardTree");
+		GameObject[] haz3 = GameObject.FindGameObjectsWithTag("HazardRain");
+
+		foreach (GameObject g in haz1)
+		{
+			Destroy(g);
+		}
+		foreach (GameObject g in haz2)
+		{
+			Destroy(g);
+		}
+		foreach (GameObject g in haz3)
+		{
+			Destroy(g);
+		}
+
+
+		/*GameObject[] bub1 = GameObject.FindGameObjectsWithTag("BubblePinwheel");
+		GameObject[] bub2 = GameObject.FindGameObjectsWithTag("BubbleSaw");
+		GameObject[] bub3 = GameObject.FindGameObjectsWithTag("BubbleWater");
+		GameObject[] bub4 = GameObject.FindGameObjectsWithTag("BubbleUp");*/
+	}
+
 	public void ToggleSpawning(bool val_)
 	{
 		if (val_)

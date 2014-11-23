@@ -26,6 +26,31 @@ public class BubbleGenerator : MonoBehaviour
 		//CreateAllBubbles();
 	}
 
+	public void DeleteAll()
+	{
+		GameObject[] bub1 = GameObject.FindGameObjectsWithTag("BubblePinwheel");
+		GameObject[] bub2 = GameObject.FindGameObjectsWithTag("BubbleSaw");
+		GameObject[] bub3 = GameObject.FindGameObjectsWithTag("BubbleWater");
+		GameObject[] bub4 = GameObject.FindGameObjectsWithTag("BubbleUp");
+
+		foreach (GameObject g in bub1)
+		{
+			Destroy(g);
+		}
+		foreach (GameObject g in bub2)
+		{
+			Destroy(g);
+		}
+		foreach (GameObject g in bub3)
+		{
+			Destroy(g);
+		}
+		foreach (GameObject g in bub4)
+		{
+			Destroy(g);
+		}
+	}
+
 	public void ToggleSpawning(bool val_)
 	{
 		if (val_)

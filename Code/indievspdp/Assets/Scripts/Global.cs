@@ -34,6 +34,13 @@ static public class Global
 
 		//show ui (hidden from beginning of the game, and never being hidden again)
 		UICont.ShowUI();
+
+		hazGen.DeleteAll();
+		bubGen.DeleteAll();
+		sCont.scrollingSpeed = 1.52f;
+		bubGen.rate = 2.1f;
+		hazGen.rate = 4.5f;
+
 	}
 	static public void StopGame()
 	{
