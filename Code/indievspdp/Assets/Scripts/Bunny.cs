@@ -100,7 +100,6 @@ public class Bunny : MonoBehaviour
                 {
                     if (bunnyType == BunnyType.Fireman)
                     {
-                        Debug.Log("Firemaaan");
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Activate();
                         Global.UICont.HazardFireDisable();
                         itemAmount--;
@@ -108,7 +107,6 @@ public class Bunny : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Bunny burns");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
@@ -118,7 +116,6 @@ public class Bunny : MonoBehaviour
                 {
                     if (bunnyType == BunnyType.Pinwheel)
                     {
-                        Debug.Log("Pinwheeeeeeel");
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Activate();
                         Global.UICont.HazardRainDisable();
                         itemAmount--;
@@ -126,7 +123,6 @@ public class Bunny : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Bunny drowns");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
@@ -136,7 +132,6 @@ public class Bunny : MonoBehaviour
                 {
                     if (bunnyType == BunnyType.Lumberjack)
                     {
-                        Debug.Log("Lumberjaaaaack");
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Activate();
                         Global.UICont.HazardTreeDisable();
                         itemAmount--;
@@ -144,17 +139,16 @@ public class Bunny : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Bunny bumps");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
                     }
                 }
-            }
 
-            if (itemAmount == 0)
-            {
-                ChangeForm(BunnyType.None);
+                if (itemAmount == 0)
+                {
+                    ChangeForm(BunnyType.None);
+                }
             }
         }
     }
@@ -189,17 +183,31 @@ public class Bunny : MonoBehaviour
 
     void ChangeForm(BunnyType type)
     {
-        bunnyType = type;
-        bunnyAnim.ChangeAnimation(bunnyType);
-        if (bunnyType == BunnyType.None)
+        if (bunnyType == type)
         {
-            itemAmount = 0;
-            thing.text = "";
+            if (bunnyType != BunnyType.None)
+            {
+                if (itemAmount < MAX_ITEMS)
+                {
+                    itemAmount++;
+                    thing.text = itemAmount.ToString();
+                }
+            }
         }
         else
         {
-            itemAmount = MAX_ITEMS;
-            thing.text = itemAmount.ToString();
+            bunnyType = type;
+            bunnyAnim.ChangeAnimation(bunnyType);
+            if (bunnyType == BunnyType.None)
+            {
+                itemAmount = 0;
+                thing.text = "";
+            }
+            else
+            {
+                itemAmount = 1;
+                thing.text = itemAmount.ToString();
+            }
         }
     }
 
