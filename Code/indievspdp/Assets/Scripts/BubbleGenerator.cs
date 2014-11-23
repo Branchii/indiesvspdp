@@ -3,12 +3,13 @@ using System.Collections;
 
 public class BubbleGenerator : MonoBehaviour
 {
-	public float rate;				//generation rate
-	public GameObject[] bubbles;	//the bubbles
-	public GameObject bunnyUp;		//bunny up object
+	public float rate;					//generation rate
+	public GameObject[] bubbles;		//the bubbles
+	public GameObject bunnyUp;			//bunny up object
+	public float randomRadius;			//randomize spawn points
 
-	float nextbubble;				//time left before creating next bubbles
-	Transform bubblePoint;			//where to create bubbles
+	float nextbubble;					//time left before creating next bubbles
+	Transform bubblePoint;				//where to create bubbles
 
 	void Awake()
 	{
@@ -19,6 +20,15 @@ public class BubbleGenerator : MonoBehaviour
 	{
 		nextbubble = 0.0f;
 		bubblePoint = transform;
+
+	}
+
+	void CreateAllBubbles()
+	{
+		for (int i = 0; i < bubbles.Length; i++)
+		{
+			CreateBubble(bubbles[i]);
+		}
 	}
 
 	GameObject GetRandomBubbleFromList(ref GameObject[] bubbleList_)
@@ -33,13 +43,30 @@ public class BubbleGenerator : MonoBehaviour
 		return null;
 	}
 
-	void CreateRandomBubble()
+	GameObject CreateBubble(GameObject obj_)
 	{
-		GameObject hazardObj = GetRandomBubbleFromList(ref bubbles);
-		GameObject thisBubble = Instantiate(hazardObj, bubblePoint.position, Quaternion.identity) as GameObject;
+		Vector3 randomPos = new Vector3((Random.value*2.0f-1.0f) * randomRadius,(Random.value*2.0f-1.0f) * randomRadius, 0.0f);
+
+
+
+		//GameObject hazardObj = GetRandomBubbleFromList(ref bubbles);
+		GameObject thisBubble = Instantiate(obj_, bubblePoint.position + randomPos, Quaternion.identity) as GameObject;
 		thisBubble.GetComponent<DragAndDropHandle>().swipeForce = Global.prefCont.bubbleSwipeForce;
 		thisBubble.GetComponent<Rigidbody2D>().AddForce(new Vector2(-50.0f, 0.0f));
 		thisBubble.GetComponent<Scroller>().scrollingSpeedOffset = 0.15f;
+		return thisBubble;
+	}
+
+	void CreateRandomBubble()
+	{
+		GameObject hazardObj = GetRandomBubbleFromList(ref bubbles);
+		CreateBubble(hazardObj);
+
+
+		/*GameObject thisBubble = Instantiate(hazardObj, bubblePoint.position, Quaternion.identity) as GameObject;
+		thisBubble.GetComponent<DragAndDropHandle>().swipeForce = Global.prefCont.bubbleSwipeForce;
+		thisBubble.GetComponent<Rigidbody2D>().AddForce(new Vector2(-50.0f, 0.0f));
+		thisBubble.GetComponent<Scroller>().scrollingSpeedOffset = 0.15f;*/
 
 		//bunnyup?
 		float value = Random.value * 100.0f;
@@ -66,10 +93,11 @@ public class BubbleGenerator : MonoBehaviour
 		}
 		if (value < thres)
 		{
-			GameObject thisBubble2 = Instantiate(bunnyUp, bubblePoint.position, Quaternion.identity) as GameObject;
+			CreateBubble(bunnyUp);
+			/*GameObject thisBubble2 = Instantiate(bunnyUp, bubblePoint.position, Quaternion.identity) as GameObject;
 			thisBubble.GetComponent<DragAndDropHandle>().swipeForce = Global.prefCont.bubbleSwipeForce;
 			thisBubble.GetComponent<Rigidbody2D>().AddForce(new Vector2(-50.0f, 0.0f));
-			thisBubble.GetComponent<Scroller>().scrollingSpeedOffset = 0.15f;
+			thisBubble.GetComponent<Scroller>().scrollingSpeedOffset = 0.15f;*/
 		}
 		
 	}
