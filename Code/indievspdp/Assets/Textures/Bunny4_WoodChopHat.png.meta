@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 10d4ad96499c0444cb1eb9fcaab6d1da
+guid: e8e231f8842a3804d84df691f56e69d5
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -42,7 +42,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Bunny_Death_0
+    - name: Bunny4_WoodChopHat_0
       rect:
         serializedVersion: 2
         x: 0
@@ -52,7 +52,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny_Death_1
+    - name: Bunny4_WoodChopHat_1
       rect:
         serializedVersion: 2
         x: 140
@@ -62,7 +62,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny_Death_2
+    - name: Bunny4_WoodChopHat_2
       rect:
         serializedVersion: 2
         x: 280
@@ -72,7 +72,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny_Death_3
+    - name: Bunny4_WoodChopHat_3
       rect:
         serializedVersion: 2
         x: 420
@@ -82,7 +82,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny_Death_4
+    - name: Bunny4_WoodChopHat_4
       rect:
         serializedVersion: 2
         x: 560
@@ -92,7 +92,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny_Death_5
+    - name: Bunny4_WoodChopHat_5
       rect:
         serializedVersion: 2
         x: 700

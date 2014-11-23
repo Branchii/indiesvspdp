@@ -54,10 +54,6 @@ public class Bunny : MonoBehaviour
     void Awake()
     {
         bunnyAnim = gameObject.GetComponentInChildren<BunnyAnimation>();
-    }
-
-    void Start()
-    {
         newPos = Vector2.zero;
         origPos = gameObject.transform.position;
     }
@@ -95,14 +91,12 @@ public class Bunny : MonoBehaviour
 
             if (obstacle)
             {
-                Debug.Log("hitt");
-
                 if (obstacle.collider.transform.tag == "HazardFire")
                 {
                     if (bunnyType == BunnyType.Fireman)
                     {
                         Debug.Log("Firemaaan");
-                        Destroy(obstacle.collider.gameObject);
+                        obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Activate();
 						Global.UICont.HazardFireDisable();
                     }
                     else
@@ -110,7 +104,7 @@ public class Bunny : MonoBehaviour
                         Debug.Log("Bunny burns");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
-                        Destroy(obstacle.collider.gameObject);
+                        obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
                     }
                 }
                 else if (obstacle.collider.transform.tag == "HazardRain")
@@ -118,7 +112,7 @@ public class Bunny : MonoBehaviour
                     if (bunnyType == BunnyType.Pinwheel)
                     {
                         Debug.Log("Pinwheeeeeeel");
-                        Destroy(obstacle.collider.gameObject);
+                        obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Activate();
 						Global.UICont.HazardRainDisable();
                     }
                     else
@@ -126,7 +120,7 @@ public class Bunny : MonoBehaviour
                         Debug.Log("Bunny drowns");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
-                        Destroy(obstacle.collider.gameObject);
+                        obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
                     }
                 }
                 else if (obstacle.collider.transform.tag == "HazardTree")
@@ -134,7 +128,7 @@ public class Bunny : MonoBehaviour
                     if (bunnyType == BunnyType.Lumberjack)
                     {
                         Debug.Log("Lumberjaaaaack");
-                        Destroy(obstacle.collider.gameObject);
+                        obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Activate();
 						Global.UICont.HazardTreeDisable();
                     }
                     else
@@ -142,7 +136,7 @@ public class Bunny : MonoBehaviour
                         Debug.Log("Bunny bumps");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
-                        Destroy(obstacle.collider.gameObject);
+                        obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
                     }
                 }
             }
@@ -153,20 +147,26 @@ public class Bunny : MonoBehaviour
         if (col.gameObject.tag == "BubbleWater")
         {
             ChangeForm(BunnyType.Fireman);
-            Destroy(col.gameObject);
+            col.gameObject.GetComponentInChildren<Bubble>().Pop();
 			Global.UICont.BubblePickup();
         }
         else if (col.gameObject.tag == "BubbleSaw")
         {
             ChangeForm(BunnyType.Lumberjack);
-            Destroy(col.gameObject);
+            col.gameObject.GetComponentInChildren<Bubble>().Pop();
 			Global.UICont.BubblePickup();
         }
         else if (col.gameObject.tag == "BubblePinwheel")
         {
             ChangeForm(BunnyType.Pinwheel);
-            Destroy(col.gameObject);
+            col.gameObject.GetComponentInChildren<Bubble>().Pop();
 			Global.UICont.BubblePickup();
+        }
+        else if (col.gameObject.tag == "BubbleUp")
+        {
+            gameObject.GetComponentInParent<BunnyList>().AddBunny();
+            col.gameObject.GetComponentInChildren<Bubble>().Pop();
+            Global.UICont.BubblePickup();
         }
     }
 

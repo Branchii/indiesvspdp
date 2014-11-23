@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5d38709d972d26a42a8ad2f388ce0aad
+guid: 0a94e8fa2550f954da5e2f0a554702d2
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -42,7 +42,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Bunny4_Jump_0
+    - name: Bunny_Faint_0
       rect:
         serializedVersion: 2
         x: 0
@@ -52,7 +52,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny4_Jump_1
+    - name: Bunny_Faint_1
       rect:
         serializedVersion: 2
         x: 140
@@ -62,7 +62,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny4_Jump_2
+    - name: Bunny_Faint_2
       rect:
         serializedVersion: 2
         x: 280
@@ -72,7 +72,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny4_Jump_3
+    - name: Bunny_Faint_3
       rect:
         serializedVersion: 2
         x: 420
@@ -82,7 +82,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny4_Jump_4
+    - name: Bunny_Faint_4
       rect:
         serializedVersion: 2
         x: 560
@@ -92,7 +92,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny4_Jump_5
+    - name: Bunny_Faint_5
       rect:
         serializedVersion: 2
         x: 700

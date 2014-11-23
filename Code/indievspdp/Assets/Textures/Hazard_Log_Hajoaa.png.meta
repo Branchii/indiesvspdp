@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c69a96d7e7722da43845da923011f170
+guid: 422635f1b0fd7174db9480e3beb9ca04
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -42,63 +42,43 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Bunny3_Jump_0
+    - name: Hazard_Log_Hajoaa_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 140
-        height: 210
+        width: 224
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny3_Jump_1
+    - name: Hazard_Log_Hajoaa_1
       rect:
         serializedVersion: 2
-        x: 140
+        x: 224
         y: 0
-        width: 140
-        height: 210
+        width: 224
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny3_Jump_2
+    - name: Hazard_Log_Hajoaa_2
       rect:
         serializedVersion: 2
-        x: 280
+        x: 448
         y: 0
-        width: 140
-        height: 210
+        width: 224
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny3_Jump_3
+    - name: Hazard_Log_Hajoaa_3
       rect:
         serializedVersion: 2
-        x: 420
+        x: 672
         y: 0
-        width: 140
-        height: 210
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny3_Jump_4
-      rect:
-        serializedVersion: 2
-        x: 560
-        y: 0
-        width: 140
-        height: 210
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Bunny3_Jump_5
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 0
-        width: 140
-        height: 210
+        width: 224
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
