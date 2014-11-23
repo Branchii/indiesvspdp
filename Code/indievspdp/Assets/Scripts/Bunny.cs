@@ -223,7 +223,7 @@ public class Bunny : MonoBehaviour
     {
         if (mouseOver)
         {
-            if (!dying)
+            if (!dying && !Moving)
             {
                 selected = true;
                 dragStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -232,53 +232,73 @@ public class Bunny : MonoBehaviour
     }
 
     void OnMouseUp()
-    {
-        if (selected && mouseOver)
         {
-            Vector2 dragEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D col = Physics2D.OverlapPoint(dragEnd);
-
-            if (col)
+            if (selected && mouseOver)
             {
-                if (col != gameObject.collider2D && col.gameObject.name == "Bunny")
+                Vector2 dragEnd = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                float sign = Mathf.Sign(dragStart.x - dragEnd.x);
+                RaycastHit2D[] colliders = Physics2D.RaycastAll(dragStart, new Vector2(dragStart.x - dragEnd.x, 0), (dragEnd.x - dragStart.x) * sign);
+                Collider2D lastBunny = gameObject.collider2D;
+                List<Collider2D> bunnies = new List<Collider2D>();
+    
+                foreach (RaycastHit2D rch in colliders)
                 {
-                    if (!col.gameObject.GetComponent<Bunny>().dying)
+                    if (rch.transform.name == "Bunny")
+                    {
+                        bunnies.Add(rch.collider);
+    
+                        if (sign == -1)
+                        {
+                            if (rch.collider.transform.position.x > lastBunny.transform.position.x)
+                            {
+                                lastBunny = rch.collider;
+                            }
+                        }
+                        else if (sign == 1)
+                        {
+                            if (rch.collider.transform.position.x < lastBunny.transform.position.x)
+                            {
+                                lastBunny = rch.collider;
+                            }
+                        }
+                    }
+                }
+    
+                if (lastBunny != gameObject.collider2D)
+                {
+                    if (!lastBunny.gameObject.GetComponent<Bunny>().dying)
                     {
                         dragStart = gameObject.transform.position;
-                        dragEnd = col.gameObject.transform.position;
-
-                        float sign = Mathf.Sign(dragStart.x - dragEnd.x);
-                        RaycastHit2D[] colliders = Physics2D.RaycastAll(dragStart, new Vector2(dragStart.x - dragEnd.x, 0), (dragEnd.x - dragStart.x) * sign);
-
+                        dragEnd = lastBunny.transform.position;
+    
                         bool anyMoving = false;
-
-                        for (int i = 0; i < colliders.Length; ++i)
+    
+                        for (int i = 0; i < bunnies.Count; ++i)
                         {
-                            if (colliders[i].transform.GetComponent<Bunny>().Moving)
+                            if (bunnies[i].transform.GetComponent<Bunny>().Moving)
                             {
                                 anyMoving = true;
                             }
                         }
-
+    
                         if (!anyMoving)
                         {
                             StartCoroutine(MoveToPosition(dragEnd));
-
-                            for (int i = 0; i < colliders.Length; ++i)
+    
+                            for (int i = 0; i < bunnies.Count; ++i)
                             {
-                                if (colliders[i].transform.name == "Bunny" && colliders[i].transform != gameObject.transform)
+                                if (bunnies[i].transform.name == "Bunny" && bunnies[i].transform != gameObject.transform)
                                 {
-                                    StartCoroutine(colliders[i].transform.gameObject.GetComponent<Bunny>().MoveForward(sign));
+                                    StartCoroutine(bunnies[i].transform.gameObject.GetComponent<Bunny>().MoveForward(sign));
                                 }
                             }
                         }
                     }
                 }
             }
+            selected = false;
+            mouseOver = false;
         }
-        selected = false;
-        mouseOver = false;
-    }
 
     void OnMouseExit()
     {
