@@ -10,7 +10,7 @@ static public class Global
 	static public Camera cam = null;
 	static public UIControl UICont = null;
 	static public BunnyList bunnyList = null;
-
+	static public MusicControl musCont = null;
 	static Vector2 ScreenToWorld(Vector2 screen)
 	{
 		return new Vector2();
