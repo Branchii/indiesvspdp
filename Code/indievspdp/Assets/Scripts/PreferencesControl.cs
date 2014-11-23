@@ -8,6 +8,7 @@ public class PreferencesControl : MonoBehaviour
 	public int scoreRewardFromHazard;
 	public float scoreRewardPerSecond;
 	public int scoreRewardFromBubble;
+    public int scoreRewardFromExtraBunnyUp;
 
 	void Awake()
 	{

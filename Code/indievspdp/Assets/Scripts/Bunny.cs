@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Bunny : MonoBehaviour
 {
     const float BUNNY_SWAP_SPEED = 0.2f;
+    const int MAX_ITEMS = 2;
 
     public enum BunnyType
     {
@@ -14,6 +15,8 @@ public class Bunny : MonoBehaviour
         Pinwheel
     }
 
+    TextMesh thing;
+
     BunnyType bunnyType = BunnyType.None;
     BunnyAnimation bunnyAnim;
     Vector2 dragStart;
@@ -21,6 +24,7 @@ public class Bunny : MonoBehaviour
     public Vector2 newPos;
     Ray2D ray = new Ray2D(Vector2.zero, Vector2.right);
     Queue<int> coRoutineQueue = new Queue<int>();
+    int itemAmount = 0;
 
     bool mouseOver, selected;
     bool moving = false;
@@ -53,6 +57,7 @@ public class Bunny : MonoBehaviour
 
     void Awake()
     {
+        thing = gameObject.GetComponentInChildren<TextMesh>();
         bunnyAnim = gameObject.GetComponentInChildren<BunnyAnimation>();
         newPos = Vector2.zero;
         origPos = gameObject.transform.position;
@@ -95,13 +100,13 @@ public class Bunny : MonoBehaviour
                 {
                     if (bunnyType == BunnyType.Fireman)
                     {
-                        Debug.Log("Firemaaan");
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Activate();
-						Global.UICont.HazardFireDisable();
+                        Global.UICont.HazardFireDisable();
+                        itemAmount--;
+                        thing.text = (itemAmount).ToString();
                     }
                     else
                     {
-                        Debug.Log("Bunny burns");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
@@ -111,13 +116,13 @@ public class Bunny : MonoBehaviour
                 {
                     if (bunnyType == BunnyType.Pinwheel)
                     {
-                        Debug.Log("Pinwheeeeeeel");
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Activate();
-						Global.UICont.HazardRainDisable();
+                        Global.UICont.HazardRainDisable();
+                        itemAmount--;
+                        thing.text = (itemAmount).ToString();
                     }
                     else
                     {
-                        Debug.Log("Bunny drowns");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
@@ -127,40 +132,46 @@ public class Bunny : MonoBehaviour
                 {
                     if (bunnyType == BunnyType.Lumberjack)
                     {
-                        Debug.Log("Lumberjaaaaack");
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Activate();
-						Global.UICont.HazardTreeDisable();
+                        Global.UICont.HazardTreeDisable();
+                        itemAmount--;
+                        thing.text = (itemAmount).ToString();
                     }
                     else
                     {
-                        Debug.Log("Bunny bumps");
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
                     }
                 }
+
+                if (itemAmount == 0)
+                {
+                    ChangeForm(BunnyType.None);
+                }
             }
         }
     }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "BubbleWater")
         {
             ChangeForm(BunnyType.Fireman);
             col.gameObject.GetComponentInChildren<Bubble>().Pop();
-			Global.UICont.BubblePickup();
+            Global.UICont.BubblePickup();
         }
         else if (col.gameObject.tag == "BubbleSaw")
         {
             ChangeForm(BunnyType.Lumberjack);
             col.gameObject.GetComponentInChildren<Bubble>().Pop();
-			Global.UICont.BubblePickup();
+            Global.UICont.BubblePickup();
         }
         else if (col.gameObject.tag == "BubblePinwheel")
         {
             ChangeForm(BunnyType.Pinwheel);
             col.gameObject.GetComponentInChildren<Bubble>().Pop();
-			Global.UICont.BubblePickup();
+            Global.UICont.BubblePickup();
         }
         else if (col.gameObject.tag == "BubbleUp")
         {
@@ -172,8 +183,32 @@ public class Bunny : MonoBehaviour
 
     void ChangeForm(BunnyType type)
     {
-        bunnyType = type;
-        bunnyAnim.ChangeAnimation(bunnyType);
+        if (bunnyType == type)
+        {
+            if (bunnyType != BunnyType.None)
+            {
+                if (itemAmount < MAX_ITEMS)
+                {
+                    itemAmount++;
+                    thing.text = itemAmount.ToString();
+                }
+            }
+        }
+        else
+        {
+            bunnyType = type;
+            bunnyAnim.ChangeAnimation(bunnyType);
+            if (bunnyType == BunnyType.None)
+            {
+                itemAmount = 0;
+                thing.text = "";
+            }
+            else
+            {
+                itemAmount = 1;
+                thing.text = itemAmount.ToString();
+            }
+        }
     }
 
     void OnMouseOver()

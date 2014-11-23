@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class BunnyList : MonoBehaviour
 {
     public const float BUNNY_INTERVAL = 1.5f;
+    const int MAX_BUNNIES = 6;
+
 
     List<GameObject> list;
     public int childCount;
@@ -85,12 +87,19 @@ public class BunnyList : MonoBehaviour
 
     public void AddBunny()
     {
-        nextPosition.x -= BUNNY_INTERVAL;
-        GameObject bunny = Instantiate(bunnyPrefab, nextPosition, Quaternion.identity) as GameObject;
-        bunny.transform.parent = gameObject.transform;
-        bunny.transform.name = "Bunny";
-        list.Add(bunny);
-        childCount++;
+        if (childCount < MAX_BUNNIES)
+        {
+            nextPosition.x -= BUNNY_INTERVAL;
+            GameObject bunny = Instantiate(bunnyPrefab, nextPosition, Quaternion.identity) as GameObject;
+            bunny.transform.parent = gameObject.transform;
+            bunny.transform.name = "Bunny";
+            list.Add(bunny);
+            childCount++;
+        }
+        else
+        {
+            Global.UICont.ExtraBunnyUp();
+        }
     }
 
     public int ReturnItemCount(Bunny.BunnyType type)

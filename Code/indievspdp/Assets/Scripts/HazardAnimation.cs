@@ -23,7 +23,6 @@ public class HazardAnimation : MonoBehaviour
 
     void DestroyHazard()
     {
-        Debug.Log("dabble");
         Destroy(transform.parent.gameObject);
     }
 

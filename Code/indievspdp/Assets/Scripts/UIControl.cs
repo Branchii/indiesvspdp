@@ -42,6 +42,11 @@ public class UIControl : MonoBehaviour
 		AddHazardBaseScore();
 	}
 
+    public void ExtraBunnyUp()
+    {
+        score += Global.prefCont.scoreRewardFromExtraBunnyUp;
+    }
+
 	public void ResetTimer()
 	{
 		gameTime = 0.0f;

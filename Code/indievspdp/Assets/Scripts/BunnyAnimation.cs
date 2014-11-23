@@ -75,6 +75,7 @@ public class BunnyAnimation : MonoBehaviour
 
     void Death()
     {
+        Destroy(transform.parent.GetComponentInChildren<TextMesh>());
         Destroy(transform.parent.gameObject.collider2D);
         Destroy(this.gameObject);
         bunnyList.RemoveBunny(transform.parent.gameObject);
