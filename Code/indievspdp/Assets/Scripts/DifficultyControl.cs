@@ -29,9 +29,9 @@ public class DifficultyControl : MonoBehaviour
 		if (speedUpTimer >= speedUpTicks)
 		{
 			Global.sCont.scrollingSpeed += scrollChangePerTick;
-			if (Global.bubGen.rate > 0.7)
+			if (Global.bubGen.rate > 0.55)
 				Global.bubGen.rate += bubbleChangePertick;
-			if (Global.hazGen.rate > 0.9)
+			if (Global.hazGen.rate > 0.75)
 			Global.hazGen.rate += hazardChangePerTick;
 			speedUpTimer = 0;
 
