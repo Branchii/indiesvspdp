@@ -32,15 +32,6 @@ public class BunnyList : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            AddBunny();
-            ReturnItemCount(Bunny.BunnyType.Fireman);
-        }
-    }
-
     public void RemoveBunny(GameObject bunny)
     {
         Vector2 bunnyDeathPosition = bunny.transform.position;
