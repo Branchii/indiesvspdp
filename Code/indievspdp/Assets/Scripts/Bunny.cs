@@ -90,7 +90,6 @@ public class Bunny : MonoBehaviour
     {
         if (!dying)
         {
-            Debug.DrawRay(gameObject.transform.position, Vector2.right * 1.0f);
             int layerMask = 1 << 8;
             RaycastHit2D obstacle = Physics2D.Raycast(gameObject.transform.position, Vector2.right, 1.0f, layerMask);
 
