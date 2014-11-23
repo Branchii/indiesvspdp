@@ -28,6 +28,7 @@ public class Button : MonoBehaviour
 			}
 			case "ToggleMusic":
 			{
+				Global.musCont.ToggleMusic();
 				Debug.Log("ToggleMusic");
 				break;
 			}

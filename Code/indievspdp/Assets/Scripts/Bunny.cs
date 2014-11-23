@@ -110,6 +110,7 @@ public class Bunny : MonoBehaviour
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
+						Global.UICont.score -= Global.prefCont.scorePenaltyForDying;
                     }
                 }
                 else if (obstacle.collider.transform.tag == "HazardRain")
@@ -126,6 +127,7 @@ public class Bunny : MonoBehaviour
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
+						Global.UICont.score -= Global.prefCont.scorePenaltyForDying;
                     }
                 }
                 else if (obstacle.collider.transform.tag == "HazardTree")
@@ -142,6 +144,7 @@ public class Bunny : MonoBehaviour
                         bunnyAnim.DeathAnimation();
                         Dying = true;
                         obstacle.collider.gameObject.GetComponentInChildren<HazardAnimation>().Hit();
+						Global.UICont.score -= Global.prefCont.scorePenaltyForDying;
                     }
                 }
 
