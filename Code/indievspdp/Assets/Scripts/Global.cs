@@ -15,4 +15,29 @@ static public class Global
 	{
 		return new Vector2();
 	}
+
+
+	static public void StartGame()
+	{
+		UICont.ResetTimer();
+		UICont.timerToggle = true;
+		bubGen.ToggleSpawning(true);
+		hazGen.ToggleSpawning(true);
+		
+		//reset score
+		UICont.score = 0;
+		UICont.hazard = 0;
+
+		//add bunnies
+		//show ui (hidden from beginning of the game, and never being hidden again)
+	}
+	static public void StopGame()
+	{
+		UICont.timerToggle = false;
+		bubGen.ToggleSpawning(false);
+		hazGen.ToggleSpawning(false);
+
+		//show gameover screen
+		
+	}
 }

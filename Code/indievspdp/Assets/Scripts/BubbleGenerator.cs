@@ -11,6 +11,8 @@ public class BubbleGenerator : MonoBehaviour
 	float nextbubble;					//time left before creating next bubbles
 	Transform bubblePoint;				//where to create bubbles
 
+	bool toggleSpawning;			//toggle
+
 	void Awake()
 	{
 		Global.bubGen = GetComponent<BubbleGenerator>();
@@ -18,9 +20,24 @@ public class BubbleGenerator : MonoBehaviour
 
 	void Start()
 	{
-		nextbubble = 0.0f;
+		toggleSpawning = false;
+		nextbubble = rate;
 		bubblePoint = transform;
-		CreateAllBubbles();
+		//CreateAllBubbles();
+	}
+
+	public void ToggleSpawning(bool val_)
+	{
+		if (val_)
+		{
+			nextbubble = 0.0f;
+			CreateAllBubbles();
+			toggleSpawning = true;
+		}
+		else
+		{
+			toggleSpawning = false;
+		}
 	}
 
 	void CreateAllBubbles()
@@ -104,7 +121,9 @@ public class BubbleGenerator : MonoBehaviour
 
 	void Update()
 	{
-		nextbubble -= Time.deltaTime;
+		if (toggleSpawning)
+			nextbubble -= Time.deltaTime;
+
 		if (nextbubble <= 0.0f)
 		{
 			CreateRandomBubble();

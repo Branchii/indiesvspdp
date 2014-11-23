@@ -9,7 +9,7 @@ public class UIControl : MonoBehaviour
 	GameObject scoreObj, timeObj, hazardObj;
 	GUIText scoreText, timeText, hazardText;
 	float gameTime = 0.0f;
-	bool timerToggle = true;
+	public bool timerToggle = false;
 
 	void Awake ()
 	{

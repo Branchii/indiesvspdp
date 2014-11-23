@@ -24,6 +24,7 @@ public class Button : MonoBehaviour
 			case "StartGame":
 			{
 				Debug.Log("Game started");
+				Global.StartGame();
 				break;
 			}
 			case "ToggleMusic":

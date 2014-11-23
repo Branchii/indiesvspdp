@@ -83,6 +83,9 @@ public class BunnyList : MonoBehaviour
 
         childCount--;
         nextPosition.x += BUNNY_INTERVAL;
+
+		if (childCount < 1)
+			Global.StopGame();
     }
 
     public void AddBunny()

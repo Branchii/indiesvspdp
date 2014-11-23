@@ -10,6 +10,8 @@ public class HazardGenerator : MonoBehaviour
 	float nextHazard;				//time left before creating next hazard
 	Transform hazardPoint;			//where to create hazards
 
+	bool toggleSpawning;
+
 	void Awake()
 	{
 		Global.hazGen = GetComponent<HazardGenerator>();
@@ -17,8 +19,22 @@ public class HazardGenerator : MonoBehaviour
 
 	void Start ()
 	{
+		toggleSpawning = false;
 		nextHazard = startingTime;
 		hazardPoint = transform;
+	}
+
+	public void ToggleSpawning(bool val_)
+	{
+		if (val_)
+		{
+			nextHazard = startingTime;
+			toggleSpawning = true;
+		}
+		else
+		{
+			toggleSpawning = false;
+		}
 	}
 
 	GameObject GetRandomHazardFromList(ref GameObject[] hazardList_)
@@ -92,7 +108,9 @@ public class HazardGenerator : MonoBehaviour
 
 	void Update ()
 	{
-		nextHazard -= Time.deltaTime;
+		if (toggleSpawning)
+			nextHazard -= Time.deltaTime;
+
 		if (nextHazard <= 0.0f)
 		{
 			CreateRandomHazard();
