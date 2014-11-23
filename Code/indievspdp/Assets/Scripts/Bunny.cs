@@ -63,29 +63,6 @@ public class Bunny : MonoBehaviour
         origPos = gameObject.transform.position;
     }
 
-    void Update()
-    {
-        if (mouseOver)
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                ChangeForm(BunnyType.None);
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                ChangeForm(BunnyType.Fireman);
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                ChangeForm(BunnyType.Pinwheel);
-            }
-            else if (Input.GetKeyDown(KeyCode.F))
-            {
-                ChangeForm(BunnyType.Lumberjack);
-            }
-        }
-    }
-
     void FixedUpdate()
     {
         if (!dying)
