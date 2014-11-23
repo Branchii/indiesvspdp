@@ -14,13 +14,11 @@ public class BunnyAnimation : MonoBehaviour
         bunnyScript = gameObject.GetComponentInParent<Bunny>();
     }
 
-	// Use this for initialization
 	void Start () 
     {
         bunnyList = gameObject.GetComponentInParent<BunnyList>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 	}
