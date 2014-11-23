@@ -11,6 +11,8 @@ static public class Global
 	static public UIControl UICont = null;
 	static public BunnyList bunnyList = null;
 	static public MusicControl musCont = null;
+	static public GameObject uiObj = null;
+
 	static Vector2 ScreenToWorld(Vector2 screen)
 	{
 		return new Vector2();
@@ -30,6 +32,7 @@ static public class Global
 
 		//add bunnies
 		//show ui (hidden from beginning of the game, and never being hidden again)
+		UICont.ShowUI();
 	}
 	static public void StopGame()
 	{
@@ -38,6 +41,7 @@ static public class Global
 		hazGen.ToggleSpawning(false);
 
 		//show gameover screen
+		UICont.ShowGameOverWindow();
 		
 	}
 }

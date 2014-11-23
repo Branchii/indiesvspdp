@@ -23,14 +23,20 @@ public class Button : MonoBehaviour
 		{
 			case "StartGame":
 			{
-				Debug.Log("Game started");
+				//Debug.Log("Game started");
 				Global.StartGame();
 				break;
 			}
 			case "ToggleMusic":
 			{
 				Global.musCont.ToggleMusic();
-				Debug.Log("ToggleMusic");
+				//Debug.Log("ToggleMusic");
+				break;
+			}
+			case "ExitGame":
+			{
+				Application.Quit();
+				//Debug.Log("ToggleMusic");
 				break;
 			}
 			default:

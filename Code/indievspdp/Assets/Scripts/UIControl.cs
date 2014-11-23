@@ -10,11 +10,29 @@ public class UIControl : MonoBehaviour
 	GUIText scoreText, timeText, hazardText;
 	float gameTime = 0.0f;
 	public bool timerToggle = false;
+	public GameObject gameOverWindow, uiObject;
 
 	void Awake ()
 	{
+		gameOverWindow.SetActive(false);
+		HideUI();
 		Global.UICont = GetComponent<UIControl>();
 	}
+
+	public void ShowGameOverWindow()
+	{
+		gameOverWindow.SetActive(true);
+	}
+
+	public void ShowUI()
+	{
+		uiObject.SetActive(true);
+	}
+	public void HideUI()
+	{
+		uiObject.SetActive(false);
+	}
+
 
 	void AddHazardBaseScore()
 	{
@@ -60,18 +78,21 @@ public class UIControl : MonoBehaviour
 	
 	void FixedUpdate ()
 	{
-		GameObject.Find("UI/UI Score").GetComponent<GUIText>().text = "" + score;
-		GameObject.Find("UI/UI Hazard").GetComponent<GUIText>().text = "" + hazard;
+		if (GameObject.Find("UI"))
+		{
+			GameObject.Find("UI/UI Score").GetComponent<GUIText>().text = "" + score;
+			GameObject.Find("UI/UI Hazard").GetComponent<GUIText>().text = "" + hazard;
 
-		string timeStr = "";
-		int minutes = (int)gameTime / 60;
-		int seconds = (int)gameTime % 60;
+			string timeStr = "";
+			int minutes = (int)gameTime / 60;
+			int seconds = (int)gameTime % 60;
 
-		if (seconds < 10)
-			timeStr = "" + minutes + ":0" + seconds;
-		else
-			timeStr = "" + minutes + ":" + seconds;
+			if (seconds < 10)
+				timeStr = "" + minutes + ":0" + seconds;
+			else
+				timeStr = "" + minutes + ":" + seconds;
 
-		GameObject.Find("UI/UI Time").GetComponent<GUIText>().text = timeStr;
+			GameObject.Find("UI/UI Time").GetComponent<GUIText>().text = timeStr;
+		}
 	}
 }
